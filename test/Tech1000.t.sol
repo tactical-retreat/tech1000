@@ -23,17 +23,17 @@ contract Tech1000Test is Test {
     }
 
     function testInitialState() public {
-        assertEq(uint(nft.currentPhase()), uint(Tech1000.Phase.Closed));
+        assertEq(uint256(nft.currentPhase()), uint256(Tech1000.Phase.Closed));
         assertEq(nft.totalSupply(), 10);
         assertEq(nft.balanceOf(owner), 10);
     }
 
     function testPhaseProgression() public {
         nft.setPhase(Tech1000.Phase.Whitelist);
-        assertEq(uint(nft.currentPhase()), uint(Tech1000.Phase.Whitelist));
+        assertEq(uint256(nft.currentPhase()), uint256(Tech1000.Phase.Whitelist));
 
         nft.setPhase(Tech1000.Phase.Public);
-        assertEq(uint(nft.currentPhase()), uint(Tech1000.Phase.Public));
+        assertEq(uint256(nft.currentPhase()), uint256(Tech1000.Phase.Public));
     }
 
     function testCannotRegressPhase() public {

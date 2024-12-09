@@ -15,7 +15,12 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
     uint256 private constant PUBLIC_PRICE = 2 ether;
     uint256 private constant OWNER_RESERVE = 10;
 
-    enum Phase {Closed, Whitelist, Public}
+    enum Phase {
+        Closed,
+        Whitelist,
+        Public
+    }
+
     Phase public currentPhase = Phase.Closed;
 
     string private _baseURIString = "ipfs://QmYXys5wyCTwHgFc53Zu9wVQA1RsvZZuCVjbZss1UH2T3Z/";
@@ -88,11 +93,11 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
     }
 
     function supportsInterface(bytes4 interfaceId)
-    public
-    view
-    virtual
-    override(ERC721Enumerable, ERC2981)
-    returns (bool)
+        public
+        view
+        virtual
+        override(ERC721Enumerable, ERC2981)
+        returns (bool)
     {
         return super.supportsInterface(interfaceId);
     }
