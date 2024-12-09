@@ -9,10 +9,12 @@ contract WhitelistScript is Script {
     address constant CONTRACT_ADDRESS = 0x42d50F7cc597e52Ef7666e9799a5291BAE99eA94;
 
     function run() public {
-        address[] memory addresses = new address[](2);
-        // Two addresses provided for WL testing on fuji.
+        address[] memory addresses = new address[](4);
+        // Addresses provided for WL testing on fuji.
         addresses[0] = 0xE98fAA3D5029d7c18f5B955bCF813aE1e0B03338;
         addresses[1] = 0xf4170848C96E04f3d9C4a568d099A8c2dEaF3FcD;
+        addresses[2] = 0xC4C55Cb8685CA32211cEb2E42d0C6156240055a5;
+        addresses[3] = 0x90B780d7546ab754e35e0d2E80d76557A012D4fE;
 
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
