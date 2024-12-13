@@ -36,12 +36,6 @@ contract Tech1000Test is Test {
         assertEq(uint256(nft.currentPhase()), uint256(Tech1000.Phase.Public));
     }
 
-    function testCannotRegressPhase() public {
-        nft.setPhase(Tech1000.Phase.Public);
-        vm.expectRevert("Cannot go backwards in phases");
-        nft.setPhase(Tech1000.Phase.Whitelist);
-    }
-
     function testZeroQuantityMinting() public {
         nft.setPhase(Tech1000.Phase.Public);
 
@@ -140,7 +134,7 @@ contract Tech1000Test is Test {
     }
 
     function testSetCreator() public {
-        nft.setCreator(user1);
+        nft.setCreator(user1, 500);
         (address receiver, uint256 royaltyAmount) = nft.royaltyInfo(1, 10000);
         assertEq(receiver, user1);
         assertEq(royaltyAmount, 500);

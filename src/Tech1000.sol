@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -23,7 +25,7 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
 
     Phase public currentPhase = Phase.Closed;
 
-    string private _baseURIString = "ipfs://QmYXys5wyCTwHgFc53Zu9wVQA1RsvZZuCVjbZss1UH2T3Z/";
+    string private _baseURIString = "ipfs://bafybeiddshgyfz2qzcyvmm3bsfqixxwoqybamjppqz4y2rcjmedmk6syda/metadata/";
     address private _creator;
     mapping(address => uint256) private _userMints;
     mapping(address => uint256) private _allowedMints;
@@ -38,12 +40,10 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
     }
 
     function setPhase(Phase phase) external onlyOwner {
-        require(uint8(phase) > uint8(currentPhase), "Cannot go backwards in phases");
         currentPhase = phase;
     }
 
     function addToWhitelist(address[] calldata users, uint256 allowedMints) external onlyOwner {
-        require(currentPhase == Phase.Closed, "Must be in closed phase");
         for (uint256 i = 0; i < users.length; i++) {
             require(users[i] != address(0), "Invalid address");
             _allowedMints[users[i]] = allowedMints;
@@ -74,10 +74,10 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
         _userMints[msg.sender] += quantity;
     }
 
-    function setCreator(address creator_) public onlyOwner {
+    function setCreator(address creator_, uint96 feeNumerator_) public onlyOwner {
         require(creator_ != address(0), "Invalid creator address");
         _creator = creator_;
-        _setDefaultRoyalty(creator_, 500);
+        _setDefaultRoyalty(creator_, feeNumerator_);
     }
 
     function setBaseURI(string calldata baseURI_) external onlyOwner {
@@ -90,6 +90,16 @@ contract Tech1000 is ERC721Enumerable, ERC2981, Ownable {
 
     function withdraw() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    function rescueERC20(address tokenAddress) public onlyOwner {
+        IERC20 token = IERC20(tokenAddress);
+        token.transfer(msg.sender, token.balanceOf(address(this)));
+    }
+
+    function rescueERC721(address tokenAddress, uint256 tokenId) public onlyOwner {
+        IERC721 token = IERC721(tokenAddress);
+        token.transferFrom(address(this), msg.sender, tokenId);
     }
 
     function supportsInterface(bytes4 interfaceId)
