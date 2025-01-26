@@ -21,8 +21,8 @@ contract DeployTech1000 is Script {
 
 // export RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
 // forge script DeployTech1000 --rpc-url $RPC_URL --broadcast --verify --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
-// forge verify-contract <deployed address> Tech1000 --verifier-url 'https://api-testnet.snowscan.xyz/api' --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
+// forge verify-contract 0x4A29DAdc24B07A6fe1A95E8cbb296F19Ee010436 Tech1000 --verifier-url 'https://api-testnet.snowscan.xyz/api' --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
 
 // export RPC_URL=https://api.avax.network/ext/bc/C/rpc
 // forge script DeployTech1000 --rpc-url $RPC_URL --broadcast --verify --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
-// forge verify-contract <deployed address> Tech1000 --verifier-url 'https://api.snowscan.xyz/api' --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
+// forge verify-contract 0x8E29FeAa0853e4148406b5c2aD30F143e08ccB98 Tech1000 --verifier-url 'https://api.snowscan.xyz/api' --etherscan-api-key "W5DEAR5SCEFQW5IXW2E8DU2MAIQY885SFS"
